@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Slf4j
-public class IndexController {
+public class RecipeController {
 
-    private final RecipeService recipeService;
+    private RecipeService recipeService;
 
-    public IndexController(RecipeService recipeService) {
+    public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
 
-    @RequestMapping({"", "/", "/index"})
+    @RequestMapping({"/", "/index", "/index.html"})
     public String index(Model model) {
+        log.debug("Serving recipes from RecipeController");
         model.addAttribute("recipes", recipeService.getAll());
-        log.debug("Serving index from IndexController");
-        return "index";
+        return "recipes";
     }
 }

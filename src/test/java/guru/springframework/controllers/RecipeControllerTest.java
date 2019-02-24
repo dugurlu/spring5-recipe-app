@@ -18,8 +18,7 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class RecipeControllerTest {
 
@@ -55,7 +54,7 @@ public class RecipeControllerTest {
         String viewName = controller.index(model);
 
 
-        assertEquals("recipes", viewName);
+        assertEquals("index", viewName);
         verify(recipeService, times(1)).getAll();
         verify(model, times(1)).addAttribute(eq("recipes"), argumentCaptor.capture());
         Set<Recipe> setInController = argumentCaptor.getValue();
@@ -68,6 +67,22 @@ public class RecipeControllerTest {
 
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("recipes"));
+                .andExpect(view().name("index"));
+    }
+
+    @Test
+    public void testGetById() throws Exception {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
+        when(recipeService.findById(anyLong())).thenReturn(recipe);
+
+        mockMvc.perform(get("/recipe/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe"))
+                .andExpect(model().attributeExists("recipe"));
+
     }
 }

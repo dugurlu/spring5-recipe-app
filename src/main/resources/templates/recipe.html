@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Recipe: ' + ${recipe.description}">Recipe</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header" th:text="${recipe.description}">Recipe Description</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col" th:text="'Difficulty: ' + ${recipe.difficulty}">Difficulty: EASY</div>
+                <div class="col" th:text="'Servings: ' + ${recipe.servings}">Servings: 1</div>
+            </div>
+            <div class="row">
+                <div class="col" th:text="'Prep Time: ' + ${recipe.prepTime} + ' min'">Prep Time: 1 min</div>
+                <div class="col" th:text="'Cook Time: ' + ${recipe.cookTime} + ' min'">Cook Time: 1 min</div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">Categories</div>
+        <ul class="list-group list-group-flush" th:each="category : ${recipe.categories}">
+            <li class="list-group-item" th:text="${category.description}">Category 1</li>
+        </ul>
+    </div>
+    <div class="card">
+        <div class="card-header">Ingredients</div>
+
+        <ul class="list-group list-group-flush" th:each="ingredient : ${recipe.ingredients}">
+            <li class="list-group-item" th:text="${ingredient.amount} + ' ' + ${ingredient.uom?.description} + ' ' + ${ingredient.description}">Ingredient 1</li>
+        </ul>
+    </div>
+    <div class="card">
+        <div class="card-header">Directions</div>
+        <div class="card-body">
+            <p class="card-text" th:text="${recipe.directions}">
+                Cooking directions...
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"
+        crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        th:src="@{/webjars/popper.js/1.14.3/popper.min.js}"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

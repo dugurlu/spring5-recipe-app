@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Recipe</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <form th:object="${recipe}" th:action="@{/recipe/}">
+        <div class="form-group">
+            <div class="form-row">
+                <div class="col">
+                    <label for="description">Description</label>
+                </div>
+            </div>
+            <div class="form-row">
+                <textarea class="form-control" id="description" th:field="*{description}"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-row">
+                <div class="col">
+                    <label for="prepTime">Prep Time</label>
+                </div>
+                <div class="col">
+                    <label for="prepTime">Cook Time</label>
+                </div>
+                <div class="col">
+                    <label for="difficulty">Difficulty</label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" id="prepTime" class="form-control" th:field="*{prepTime}">
+                </div>
+                <div class="col">
+                    <input type="text" id="cookTime" class="form-control" th:field="*{cookTime}">
+                </div>
+                <div class="col">
+                    <select id="difficulty" class="form-control" th:field="*{difficulty}">
+                        <option th:value="EASY">Easy</option>
+                        <option th:value="MODERATE">Moderate</option>
+                        <option th:value="HARD">Hard</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-row">
+                <div class="col">
+                    <label for="servings">Servings</label>
+                </div>
+                <div class="col">
+                    <label for="source">Source</label>
+                </div>
+                <div class="col">
+                    <label for="url">URL</label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" id="servings" class="form-control" th:field="*{servings}">
+                </div>
+                <div class="col">
+                    <input type="text" id="source" class="form-control" th:field="*{source}">
+                </div>
+                <div class="col">
+                    <input type="text" id="url" class="form-control" th:field="*{url}">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-row">
+                <label class="col" for="directions">Directions</label>
+            </div>
+            <div class="form-row">
+                <textarea class="form-control" id="directions" th:field="*{directions}"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-row">
+                <label class="col" for="notes">Notes</label>
+            </div>
+            <div class="form-row">
+                <textarea class="form-control" id="notes" th:field="*{notes.recipeNotes}"></textarea>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>

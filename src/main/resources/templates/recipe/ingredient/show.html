@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingredients</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header" th:text="${ingredient.description}">Yummy Goodness</div>
+        <div class="card-body">
+            <table class="table table-stripes">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row" th:text="${ingredient.id}">1</th>
+                    <td th:text="${ingredient.amount} + ' ' + ${ingredient.unitOfMeasure?.description} + ' ' + ${ingredient.description}">Yummy Goodness</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

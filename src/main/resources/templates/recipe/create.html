@@ -10,7 +10,8 @@
 </head>
 <body>
 <div class="container">
-    <form th:object="${recipe}" th:action="@{/recipe/}">
+    <form th:object="${recipe}" th:action="@{/recipe/}" method="post">
+        <input type="hidden" th:field="*{id}">
         <div class="form-group">
             <div class="form-row">
                 <div class="col">
@@ -42,9 +43,9 @@
                 </div>
                 <div class="col">
                     <select id="difficulty" class="form-control" th:field="*{difficulty}">
-                        <option th:value="EASY">Easy</option>
-                        <option th:value="MODERATE">Moderate</option>
-                        <option th:value="HARD">Hard</option>
+                        <option th:each="difficultyValue : ${T(guru.springframework.domain.Difficulty).values()}"
+                                th:value="${difficultyValue.name()}"
+                                th:text="${difficultyValue.name()}">Easy</option>
                     </select>
                 </div>
             </div>

@@ -44,6 +44,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         UnitOfMeasure tablespoon = unitOfMeasureRepository.findByDescription("Tablespoon").orElse(null);
         UnitOfMeasure dash = unitOfMeasureRepository.findByDescription("Dash").orElse(null);
         UnitOfMeasure clove = unitOfMeasureRepository.findByDescription("Clove").orElse(null);
+        UnitOfMeasure each = unitOfMeasureRepository.findByDescription("Each").orElse(null);
 
         Recipe guacamoleRecipe = new Recipe();
         guacamoleRecipe.setPrepTime(10);
@@ -80,14 +81,14 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         guacamoleRecipe.getCategories().add(mexican);
         guacamoleRecipe.getCategories().add(american);
 
-        guacamoleRecipe.addIngredient(new Ingredient("ripe avocado", BigDecimal.valueOf(2), null))
+        guacamoleRecipe.addIngredient(new Ingredient("ripe avocado", BigDecimal.valueOf(2), each))
                 .addIngredient(new Ingredient("Kosher salt", BigDecimal.valueOf(0.5), teaspoon))
                 .addIngredient(new Ingredient("fresh lime juice or lemon juice", BigDecimal.valueOf(1), tablespoon))
                 .addIngredient(new Ingredient("minced red onion", BigDecimal.valueOf(2), tablespoon))
-                .addIngredient(new Ingredient("serrano chiles", BigDecimal.valueOf(2), null))
+                .addIngredient(new Ingredient("serrano chiles", BigDecimal.valueOf(2), each))
                 .addIngredient(new Ingredient("cilantro", BigDecimal.valueOf(2), tablespoon))
                 .addIngredient(new Ingredient("freshly grated black pepper", BigDecimal.valueOf(1), dash))
-                .addIngredient(new Ingredient("ripe tomato", BigDecimal.valueOf(0.5), null));
+                .addIngredient(new Ingredient("ripe tomato", BigDecimal.valueOf(0.5), each));
 
         recipes.add(guacamoleRecipe);
         log.debug("Guacamole Recipe loaded");
@@ -139,7 +140,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
                 .addIngredient(new Ingredient("finely grated orange zest", BigDecimal.valueOf(1), tablespoon))
                 .addIngredient(new Ingredient("fresh-squeezed orange juice", BigDecimal.valueOf(3), tablespoon))
                 .addIngredient(new Ingredient("olive oil", BigDecimal.valueOf(2), tablespoon))
-                .addIngredient(new Ingredient("skinless, bnoeless chicken thighs", BigDecimal.valueOf(6), null));
+                .addIngredient(new Ingredient("skinless, bnoeless chicken thighs", BigDecimal.valueOf(6), each));
 
         recipes.add(tacosRecipe);
         log.debug("Tacos Recipe loaded");

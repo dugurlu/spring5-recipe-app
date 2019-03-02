@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Recipe Image</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header" th:text="'Upoad Image for ' + ${recipe.description}">Upload Image</div>
+        <div class="card-body">
+            <form action="http://localhost" method="post" enctype="multipart/form-data"
+                  th:action="@{'/recipe/' + ${recipe.id} + '/image'}"/>
+            <label for="imagefile">Select File</label>
+            <input id="imagefile" name="imagefile" type="file" class="file">
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

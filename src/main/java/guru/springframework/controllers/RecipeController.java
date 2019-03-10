@@ -13,74 +13,80 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
-@Controller
+/**
+ * Created by jt on 6/19/17.
+ */
 @Slf4j
+@Controller
 public class RecipeController {
 
+    private static final String RECIPE_RECIPEFORM_URL = "recipe/recipeform";
     private final RecipeService recipeService;
 
     public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
 
-    @GetMapping({"", "/", "/index"})
-    public String index(Model model) {
-        model.addAttribute("recipes", recipeService.getAll());
-        log.debug("Serving index from IndexController");
-        return "index";
+    @GetMapping("/recipe/{id}/show")
+    public String showById(@PathVariable String id, Model model){
+
+        model.addAttribute("recipe", recipeService.findById(id));
+
+        return "recipe/show";
     }
 
-    @GetMapping("/recipe/{id}")
-    public String getRecipeById(@PathVariable String id, Model model) {
-        model.addAttribute("recipe", recipeService.findById(new Long(id)));
-
-        return "recipe/recipe";
-    }
-
-    @GetMapping("/recipe/create")
-    public String createRecipe(Model model) {
-
+    @GetMapping("recipe/new")
+    public String newRecipe(Model model){
         model.addAttribute("recipe", new RecipeCommand());
 
-        return "recipe/create";
+        return "recipe/recipeform";
     }
 
     @GetMapping("recipe/{id}/update")
-    public String updateRecipe(@PathVariable String id, Model model) {
-        model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
-        return "recipe/create";
+    public String updateRecipe(@PathVariable String id, Model model){
+        model.addAttribute("recipe", recipeService.findCommandById(id));
+        return RECIPE_RECIPEFORM_URL;
     }
 
     @PostMapping("recipe")
-    public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand command, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            bindingResult.getAllErrors().forEach(error -> {
-                log.debug(error.toString());
+    public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand command, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+
+            bindingResult.getAllErrors().forEach(objectError -> {
+                log.debug(objectError.toString());
             });
-            return "recipe/create";
+
+            return RECIPE_RECIPEFORM_URL;
         }
+
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
 
-        return "redirect:/recipe/" + savedCommand.getId();
+        return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }
 
     @GetMapping("recipe/{id}/delete")
-    public String deleteById(@PathVariable String id) {
-        log.debug("Deleting Recipe ID: " + id);
+    public String deleteById(@PathVariable String id){
 
-        recipeService.deleteById(Long.valueOf(id));
+        log.debug("Deleting id: " + id);
+
+        recipeService.deleteById(id);
         return "redirect:/";
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
-    public ModelAndView handleNotFound(Exception exception) {
+    public ModelAndView handleNotFound(Exception exception){
+
         log.error("Handling not found exception");
         log.error(exception.getMessage());
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("404");
+
+        modelAndView.setViewName("404error");
         modelAndView.addObject("exception", exception);
+
         return modelAndView;
     }
+
 }

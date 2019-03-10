@@ -2,8 +2,14 @@ package guru.springframework.services;
 
 import guru.springframework.commands.IngredientCommand;
 
+/**
+ * Created by jt on 6/27/17.
+ */
 public interface IngredientService {
-    IngredientCommand findByRecipeIdAndId(Long recipeId, Long ingredientId);
+
+    IngredientCommand findByRecipeIdAndIngredientId(String recipeId, String ingredientId);
+
     IngredientCommand saveIngredientCommand(IngredientCommand command);
-    void deleteById(Long recipeId, Long ingredientId);
+
+    void deleteById(String recipeId, String idToDelete);
 }

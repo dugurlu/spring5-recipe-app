@@ -4,10 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
+/**
+ * Created by jt on 6/21/17.
+ */
 @Setter
+@Getter
 @NoArgsConstructor
 public class CategoryCommand {
-    private Long id;
+    private String id;
     private String description;
 }
